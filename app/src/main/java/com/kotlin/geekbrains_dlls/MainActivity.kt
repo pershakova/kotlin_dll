@@ -15,15 +15,15 @@ class MainActivity : AppCompatActivity(), MainView{
         setContentView(R.layout.activity_main)
 
         val listener1 = View.OnClickListener {
-            setButtonText1(presenter.counterClick1(0))
+            presenter.counterClick1(0)
         }
 
         val listener2 = View.OnClickListener {
-            setButtonText2(presenter.counterClick1(1))
+            presenter.counterClick2(1)
         }
 
         val listener3 = View.OnClickListener {
-            setButtonText3(presenter.counterClick1(2))
+            presenter.counterClick3(2)
         }
 
         btn_counter1.setOnClickListener(listener1)
