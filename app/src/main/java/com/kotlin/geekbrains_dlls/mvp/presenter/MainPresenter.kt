@@ -1,20 +1,18 @@
 package com.kotlin.geekbrains_dlls.mvp.presenter
 
-import com.kotlin.geekbrains_dlls.mvp.model.CountersModel
 import com.kotlin.geekbrains_dlls.mvp.view.MainView
+import com.kotlin.geekbrains_dlls.navigation.Screens
+import moxy.MvpPresenter
+import ru.terrakok.cicerone.Router
 
-class MainPresenter(val view: MainView) {
-    val model = CountersModel()
+class MainPresenter(val router: Router) : MvpPresenter<MainView>() {
 
-    fun counterClick1(index: Int){
-        view.setButtonText1(model.next(index).toString())
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        router.replaceScreen(Screens.UsersScreen())
     }
 
-    fun counterClick2(index: Int){
-        view.setButtonText2(model.next(index).toString())
-    }
-
-    fun counterClick3(index: Int){
-        view.setButtonText3(model.next(index).toString())
+    fun backClicked() {
+        router.exit()
     }
 }
