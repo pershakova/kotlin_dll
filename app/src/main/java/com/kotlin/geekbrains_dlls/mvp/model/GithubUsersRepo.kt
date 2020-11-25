@@ -11,11 +11,11 @@ class GithubUsersRepo {
         GithubUser("login5")
     )
 
-  /*  fun getUsers() : Observable<GithubUser> {
+   fun getUsers() : Observable<GithubUser> {
         return return Observable.fromIterable(repositories)
-    } */
-
-    fun getUsers() : List<GithubUser> {
-        return repositories
     }
+
+/*   fun getUsers() : List<GithubUser> {
+      return repositories
+  }*/
 }
