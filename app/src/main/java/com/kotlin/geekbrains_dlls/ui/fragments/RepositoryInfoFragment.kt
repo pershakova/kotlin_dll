@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.kotlin.geekbrains_dlls.R
 import com.kotlin.geekbrains_dlls.common.Constants
+import com.kotlin.geekbrains_dlls.mvp.model.GithubRepository
 import com.kotlin.geekbrains_dlls.mvp.model.GithubUser
 import moxy.MvpAppCompatFragment
 
-class UserFragment : MvpAppCompatFragment() {
+class RepositoryInfoFragment : MvpAppCompatFragment() {
     companion object {
-        fun getInstance(repository: GithubUser?): UserFragment? {
-            val fragment: UserFragment = UserFragment()
+        fun getInstance(repository: GithubRepository?): RepositoryInfoFragment? {
+            val fragment = RepositoryInfoFragment()
             val args = Bundle()
             args.putParcelable(
-                Constants.GithubUser,
+                Constants.GithubRepositoryInfo,
                 repository
             )
             fragment.setArguments(args)
@@ -31,11 +32,15 @@ class UserFragment : MvpAppCompatFragment() {
     ): View? {
 
         val view = View.inflate(context, R.layout.fragment_user, null)
-        val login = view.findViewById<TextView>(R.id.login)
+        val forkText = view.findViewById<TextView>(R.id.fork)
+        val forksText = view.findViewById<TextView>(R.id.forks)
         val bundle = this.arguments
 
-        login.text =
-            bundle?.getParcelable<GithubUser>(Constants.GithubUser)?.login
+        forkText.text =
+            bundle?.getParcelable<GithubRepository>(Constants.GithubRepositoryInfo)?.fork
+
+        forksText.text =
+            bundle?.getParcelable<GithubRepository>(Constants.GithubRepositoryInfo)?.forks
         return view
     }
 }

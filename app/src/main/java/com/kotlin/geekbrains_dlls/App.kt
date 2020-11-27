@@ -5,8 +5,10 @@ import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
 class App : Application() {
+
     companion object {
          lateinit var instance: App
+        lateinit var apiHolder: ApiHolder
     }
 
     //Временно до даггера положим это тут
@@ -17,6 +19,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        apiHolder = ApiHolder
     }
 
     val navigatorHolder

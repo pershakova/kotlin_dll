@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kotlin.geekbrains_dlls.ApiHolder
 import com.kotlin.geekbrains_dlls.App
 import com.kotlin.geekbrains_dlls.R
 import com.kotlin.geekbrains_dlls.mvp.model.GithubUsersRepo
+import com.kotlin.geekbrains_dlls.mvp.model.RetrofitGithubUsersRepo
 import com.kotlin.geekbrains_dlls.mvp.presenter.UsersPresenter
 import com.kotlin.geekbrains_dlls.mvp.view.UsersView
+import com.kotlin.geekbrains_dlls.mvp.view.image.GlideImageLoader
 import com.kotlin.geekbrains_dlls.ui.adapter.UsersRVAdapter
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -20,7 +24,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView {
         fun newInstance() = UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter { UsersPresenter(GithubUsersRepo(), App.instance.router) }
+    val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter(AndroidSchedulers.mainThread(), RetrofitGithubUsersRepo(ApiHolder.api), App.instance.router)
+    }
     var adapter: UsersRVAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
@@ -28,7 +34,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView {
 
     override fun init() {
         rv_users.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRVAdapter(presenter.usersListPresenter)
+        adapter = UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader())
         rv_users.adapter = adapter
     }
 
