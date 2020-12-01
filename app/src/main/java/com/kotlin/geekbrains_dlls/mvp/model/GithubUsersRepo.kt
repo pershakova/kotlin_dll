@@ -2,7 +2,7 @@ package com.kotlin.geekbrains_dlls.mvp.model
 
 import io.reactivex.rxjava3.core.Observable
 
-class GithubUsersRepo {
+/*class GithubUsersRepo {
     private val repositories = listOf(
         GithubUser("login1"),
         GithubUser("login2"),
@@ -15,7 +15,7 @@ class GithubUsersRepo {
         return return Observable.fromIterable(repositories)
     }
 
-/*   fun getUsers() : List<GithubUser> {
+  fun getUsers() : List<GithubUser> {
       return repositories
-  }*/
-}
+  }
+}*/

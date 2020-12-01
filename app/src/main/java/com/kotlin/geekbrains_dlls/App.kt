@@ -1,6 +1,7 @@
 package com.kotlin.geekbrains_dlls
 
 import android.app.Application
+import com.kotlin.geekbrains_dlls.mvp.model.entity.room.Database
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
@@ -20,6 +21,7 @@ class App : Application() {
         super.onCreate()
         instance = this
         apiHolder = ApiHolder
+        Database.create(this)
     }
 
     val navigatorHolder
