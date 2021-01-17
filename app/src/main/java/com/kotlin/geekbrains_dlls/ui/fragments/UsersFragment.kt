@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kotlin.geekbrains_dlls.ApiHolder
 import com.kotlin.geekbrains_dlls.App
 import com.kotlin.geekbrains_dlls.R
-import com.kotlin.geekbrains_dlls.mvp.model.GithubUsersRepo
-import com.kotlin.geekbrains_dlls.mvp.model.RetrofitGithubUsersRepo
+import com.kotlin.geekbrains_dlls.mvp.model.cache.room.RoomGithubUsersCache
+import com.kotlin.geekbrains_dlls.mvp.model.entity.room.Database
+import com.kotlin.geekbrains_dlls.mvp.model.repo.retrofit.RetrofitGithubUsersRepo
 import com.kotlin.geekbrains_dlls.mvp.presenter.UsersPresenter
 import com.kotlin.geekbrains_dlls.mvp.view.UsersView
 import com.kotlin.geekbrains_dlls.mvp.view.image.GlideImageLoader
 import com.kotlin.geekbrains_dlls.ui.adapter.UsersRVAdapter
+import com.kotlin.geekbrains_dlls.ui.network.AndroidNetworkStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
@@ -25,7 +27,12 @@ class UsersFragment : MvpAppCompatFragment(), UsersView {
     }
 
     val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(AndroidSchedulers.mainThread(), RetrofitGithubUsersRepo(ApiHolder.api), App.instance.router)
+        UsersPresenter(AndroidSchedulers.mainThread(),
+            RetrofitGithubUsersRepo(ApiHolder.api,
+            AndroidNetworkStatus(context!!),
+            Database.getInstance(),
+                RoomGithubUsersCache( Database.getInstance())
+        ), App.instance.router)
     }
     var adapter: UsersRVAdapter? = null
 

@@ -41,7 +41,7 @@ class UsersPresenter(
     }
 
     fun loadData() {
-        usersRepo.getUsers()
+        usersRepo.users
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->
                 usersListPresenter.users.clear()
